@@ -6,7 +6,7 @@ Edycja PianoFall zrobiona na Unreal Engine (mój pierwszy projekt w UE)
 Po uruchomieniu programu i wciśnięciu przycisku Start, powinno pokazać się menu  
 ![image](https://user-images.githubusercontent.com/81181783/121790509-4e32d880-cbe0-11eb-866b-4e005d4b1123.png)
  - Open .mid file - Otwiera przeglądarke plików z której można wybrać plik .mid
- - Otwiera przeglądarke folderów z której można wybrać wyjściowy folder renderu
+ - Select output folder - Otwiera przeglądarke folderów z której można wybrać wyjściowy folder renderu
  - Start Render - Rozpoczyna render
  - Pole z napisem "Tracks" - po załadowaniu pliku .mid pojawiają się tam informacje o jego ścieżkach
 #### Do uruchomienia renderu potrzeba wybrać plik .Mid i Folder wyjsciowy!
