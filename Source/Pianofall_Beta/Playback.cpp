@@ -9,7 +9,7 @@ smf::MidiFile PlayBackMidiFile;
 bool PlayBackMidiLoaded = false;
 bool started = false;
 
-float MidiReadStep = -1.0f;
+float MidiReadStep = 0.0f;
 uint32 startFrame = 0;
 
 std::string outFolder;
@@ -62,11 +62,11 @@ void APlayback::Tick(float DeltaTime)
 				}
 			}
 		}
-
-		std::stringstream ss;
-		ss << outFolder << "/Frame" << ZeroPadNumber(GFrameNumber - startFrame, 6) << ".png";
-		FScreenshotRequest::RequestScreenshot(ss.str().c_str(), false, false);
-
-		MidiReadStep += started ? (1.0f / 3600.0f) : 0;
 	}
+
+	std::stringstream ss;
+	ss << outFolder << "/Frame" << ZeroPadNumber(GFrameNumber - startFrame, 6) << ".png";
+	FScreenshotRequest::RequestScreenshot(ss.str().c_str(), false, false);
+
+	MidiReadStep += started ? (1.0f / 60.0f) : 0;
 }
