@@ -4,4 +4,4 @@
  - Realtime playback
  - Audio
  - Frame merger (Frames -> .mp4 (or something))
- - Cross platform, currently program uses [Easy File Dialog](https://www.unrealengine.com/marketplace/en-US/product/easy-file-dialog), which works only on windows
+ - Cross platform, currently program uses [Easy File Dialog](https://www.unrealengine.com/marketplace/en-US/product/easy-file-dialog), which only works on windows
