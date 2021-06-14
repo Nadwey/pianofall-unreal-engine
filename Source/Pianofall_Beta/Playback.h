@@ -25,5 +25,5 @@ public:
 		TSubclassOf<class AActor> NoteToSpawn;
 
 	UFUNCTION(BlueprintCallable, Category = "Midi")
-		void InitRender(const FString& MidiPath, const FString& OutFolder);
+		void InitRender(const FString& MidiPath, const FString& OutFolder, const int32& PlaybackMode, const int32& PlaybackColorMode);
 };
