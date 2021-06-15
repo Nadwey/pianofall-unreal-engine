@@ -1,4 +1,5 @@
  - Note limiter
+ - Lots of optimization -_-
  - Midi devices input
  - Realtime playback (50% done)
  - Audio
