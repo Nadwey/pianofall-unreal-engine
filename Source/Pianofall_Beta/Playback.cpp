@@ -52,7 +52,7 @@ void APlayback::Tick(float DeltaTime)
 			smf::MidiEvent& midiEvent = PlayBackMidiFile[track][mEvent];
 
 			if (midiEvent.seconds > MidiReadStep) break;
-;
+
 			if (midiEvent.seconds < MidiReadStep && midiEvent.isNoteOn()) {
 				if (!midiEvent.GetPlayedArleady()) {
 					FActorSpawnParameters SpawnParams;
