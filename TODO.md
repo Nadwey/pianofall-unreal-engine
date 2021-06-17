@@ -1,7 +1,8 @@
  - Note limiter
- - Lots of optimization -_-
+ - Lots of optimization -_- (RAM USAGE)
  - Midi devices input
  - Realtime playback (50% done)
  - Audio
  - Frame merger (Frames -> .mp4 (or something))
  - Cross platform, currently program uses [Easy File Dialog](https://www.unrealengine.com/marketplace/en-US/product/easy-file-dialog), which only works on windows
+ - Crash roulette
