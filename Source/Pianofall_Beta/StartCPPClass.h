@@ -2,8 +2,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Engine/LevelScriptActor.h"
+#include <CoreMinimal.h>
+#include <Engine/LevelScriptActor.h>
+#include <Engine/StaticMeshActor.h>
 #include "StartCPPClass.generated.h"
 
 /**
@@ -22,9 +23,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<class AActor> BackgroundNoteToSpawn;
+		UStaticMesh* BackgroundNoteToSpawn = nullptr;
 
 	UFUNCTION(BlueprintCallable, Category = "Midi")
 		void GetTrackStrings(const FString& MidiPath, FString& OutTracks);
 	
+	AStaticMeshActor* SpawnNote(FVector& location, FRotator& rotation);
+	TArray<AStaticMeshActor*> notes;
+	int currentNote;
+	const int MAX_NOTES = 100;
 };

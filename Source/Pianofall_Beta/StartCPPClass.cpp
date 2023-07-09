@@ -1,7 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "StartCPPClass.h"
+﻿#include "StartCPPClass.h"
 #include "Utils/Random.h"
 #include "Midiparser/MidiFile.h"
 #include <string>
@@ -38,17 +35,44 @@ void AStartCPPClass::BeginPlay()
 void AStartCPPClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if ((GFrameNumber % 3) != 0) return;
+
 	UWorld* const StartWorld = GetWorld();
 
-	if (GFrameNumber % 3) return;
-
-
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.Owner = this;
-	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 	FVector location = RandomVector(200.0f, 1500.0f, 0.0f);
+	FRotator rotation = RandomRotator();
 	location.Z = 500.0f;
-	StartWorld->SpawnActor<AActor>(BackgroundNoteToSpawn, location, RandomRotator(), SpawnParams);
 
+
+	AStaticMeshActor* spawnedNote = SpawnNote(location, rotation);
+
+	if (currentNote > MAX_NOTES) currentNote = 0;
+	if (notes.IsValidIndex(currentNote) && IsValid(notes[currentNote]))
+	{
+		notes[currentNote]->Destroy();
+		notes[currentNote] = spawnedNote;
+	}
+	else
+	{
+		notes.Add(spawnedNote);
+	}
+
+	currentNote++;
+}
+
+AStaticMeshActor* AStartCPPClass::SpawnNote(FVector& location, FRotator& rotation)
+{
+	AStaticMeshActor* spawnedNote = GetWorld()->SpawnActor<AStaticMeshActor>(AStaticMeshActor::StaticClass());
+	spawnedNote->SetMobility(EComponentMobility::Movable);
+	spawnedNote->SetActorLocation(location);
+	spawnedNote->SetActorRotation(rotation);
+	UStaticMeshComponent* MeshComponent = spawnedNote->GetStaticMeshComponent();
+	if (MeshComponent)
+	{
+		MeshComponent->SetStaticMesh(BackgroundNoteToSpawn);
+		MeshComponent->SetMobility(EComponentMobility::Movable);
+		MeshComponent->SetSimulatePhysics(true);
+	}
+
+	return spawnedNote;
 }
