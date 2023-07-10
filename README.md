@@ -6,4 +6,6 @@
 
 ![A lot of notes](https://github.com/Nadwey/pianofall-unreal-engine/assets/81181783/c5c791cc-4c02-4e68-a0fb-e73df1e3e715)
 
+![A lot of colorful notes](https://github.com/Nadwey/pianofall-unreal-engine/assets/81181783/578b6f71-f076-4434-9f36-e9153cd856f3)
+
 [Showcase](https://www.youtube.com/watch?v=H7Ljd3_qltU)
