@@ -1,12 +1,9 @@
-# PianoFall - Unreal Engine Edition  
-Edycja PianoFall zrobiona na Unreal Engine (mój pierwszy projekt w UE)  
-![image](https://user-images.githubusercontent.com/81181783/121790479-1592ff00-cbe0-11eb-8e6b-a921b42ffa44.png)
+# Pianofall Unreal Engine
 
-## Obsługa
-Po uruchomieniu programu i wciśnięciu przycisku Start, powinno pokazać się menu  
-![image](https://user-images.githubusercontent.com/81181783/121790509-4e32d880-cbe0-11eb-866b-4e005d4b1123.png)
- - Open .mid file - Otwiera przeglądarke plików z której można wybrać plik .mid
- - Select output folder - Otwiera przeglądarke folderów z której można wybrać wyjściowy folder renderu
- - Start Render - Rozpoczyna render
- - Pole z napisem "Tracks" - po załadowaniu pliku .mid pojawiają się tam informacje o jego ścieżkach
-#### Do uruchomienia renderu potrzeba wybrać plik .Mid i Folder wyjsciowy!
+[Pianofall](https://github.com/ste-art/Pianofall) but in Unreal Engine...
+
+![Pianofall Unreal Engine - title screen](https://github.com/Nadwey/pianofall-unreal-engine/assets/81181783/b60998cc-6fd7-4cb8-8ae7-3932132751cf)
+
+![A lot of notes](https://github.com/Nadwey/pianofall-unreal-engine/assets/81181783/c5c791cc-4c02-4e68-a0fb-e73df1e3e715)
+
+[Showcase](https://www.youtube.com/watch?v=H7Ljd3_qltU)
