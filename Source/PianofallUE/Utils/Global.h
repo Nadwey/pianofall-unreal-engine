@@ -26,7 +26,7 @@ struct RGB {
 	double b;
 };
 
-struct RGB rgb(double ratio)
+RGB rgb(double ratio)
 {
 	//we want to normalize ratio so that it fits in to 6 regions
 	//where each region is 256 units long
@@ -54,7 +54,7 @@ struct RGB rgb(double ratio)
 	return color;
 }
 
-struct RGB RandomColor()
+RGB RandomColor()
 {
 	RGB color;
 	color.r = FMath::RandRange(0, 255);
