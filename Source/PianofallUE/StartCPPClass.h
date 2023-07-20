@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class PIANOFALL_BETA_API AStartCPPClass : public ALevelScriptActor
+class PIANOFALLUE_API AStartCPPClass : public ALevelScriptActor
 {
 	GENERATED_BODY()
 

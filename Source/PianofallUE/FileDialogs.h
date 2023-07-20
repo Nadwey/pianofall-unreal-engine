@@ -13,7 +13,7 @@
  * 
  */
 UCLASS()
-class PIANOFALL_BETA_API UFileDialogs : public UBlueprintFunctionLibrary
+class PIANOFALLUE_API UFileDialogs : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

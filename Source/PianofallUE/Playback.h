@@ -16,7 +16,7 @@
  * 
  */
 UCLASS()
-class PIANOFALL_BETA_API APlayback : public ALevelScriptActor
+class PIANOFALLUE_API APlayback : public ALevelScriptActor
 {
 	GENERATED_BODY()
 protected:

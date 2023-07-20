@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class Pianofall_Beta : ModuleRules
+public class PianofallUE : ModuleRules
 {
-	public Pianofall_Beta(ReadOnlyTargetRules Target) : base(Target)
+	public PianofallUE(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	

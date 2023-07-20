@@ -3,13 +3,13 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class Pianofall_BetaEditorTarget : TargetRules
+public class PianofallUEEditorTarget : TargetRules
 {
-	public Pianofall_BetaEditorTarget(TargetInfo Target) : base(Target)
+	public PianofallUEEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 
-		ExtraModuleNames.AddRange( new string[] { "Pianofall_Beta" } );
+		ExtraModuleNames.AddRange( new string[] { "PianofallUE" } );
 	}
 }
