@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"name": "PianofallUE",
+			"path": "."
+		},
+		{
+			"name": "UE5",
+			"path": "/run/media/nadwey/c6132e9a-b770-488a-8084-161b02047c5e/UnrealEngine-release"
+		}
+	],
+	"settings": {
+		"typescript.tsc.autoDetect": "off"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools",
+			"ms-dotnettools.csharp",
+			"vadimcn.vscode-lldb",
+			"ms-vscode.mono-debug",
+			"dfarley1.file-picker"
+		]
+	}
+}

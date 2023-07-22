@@ -1,8 +1,6 @@
-# .gitignore
-# https://external-preview.redd.it/f3Zuz0f7M3oYfWGKHYemJW9KZeUrUWshuwvQM_g8q7c.png?auto=webp&s=79a42dd9d4dc236eaec45ba654123e79736ae0c1
-
-# Visual Studio 2015 user specific files
+# Visual Studio 2015 and Visual Studio Code user specific files
 .vs/
+.vscode/
 
 # Compiled Object files
 *.slo
