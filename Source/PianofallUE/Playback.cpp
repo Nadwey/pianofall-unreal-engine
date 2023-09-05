@@ -116,7 +116,16 @@ void APlayback::Tick(float DeltaTime)
 		FScreenshotRequest::RequestScreenshot(ss.str().c_str(), false, false);
 	}
 
-	MidiReadStep = (float)frame / 60.0f;
+	switch (playbackType)
+	{
+	case EPlaybackTypes::Realtime:
+		MidiReadStep += DeltaTime;
+		break;
+	case EPlaybackTypes::Render:
+		MidiReadStep = (float)frame / 60.0f;
+		break;
+	}
+	
 	frame++;
 }
 
