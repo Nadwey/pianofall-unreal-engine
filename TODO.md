@@ -1,8 +1,10 @@
- - Note limiter
- - Lots of optimization -_- (RAM USAGE)
- - Midi devices input
- - Realtime playback (50% done)
- - Audio
- - Frame merger (Frames -> .mp4 (or something))
- - Cross platform, currently program uses [Easy File Dialog](https://www.unrealengine.com/marketplace/en-US/product/easy-file-dialog), which only works on windows
- - Crash roulette
+- [x] Note limiter
+   - [ ] Change the amount of notes
+- [x] Lots of optimization -_- (RAM USAGE)
+   - [ ] The ram usage isn't too bad, now I have to fix Chaos (UE's physics engine) crashing
+- [x] Cross platform, ~~currently program uses [Easy File Dialog](https://www.unrealengine.com/marketplace/en-US/product/easy-file-dialog), which only works on windows~~
+- [x] Realtime playback (50% done)
+- [x] ~~Frame merger (Frames -> .mp4 (or something))~~, use FFmpeg
+- [ ] Better playback configuration
+- [ ] Midi devices input
+- [ ] Audio
