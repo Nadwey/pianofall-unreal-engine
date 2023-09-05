@@ -30,7 +30,7 @@ public:
 		UStaticMesh* NoteToSpawn;
 
 	UFUNCTION(BlueprintCallable, Category = "Midi")
-		void InitRender(const FString& MidiPath, const FString& OutFolder, const EPlaybackTypes& PlaybackMode, const EPlaybackColorMode& PlaybackColorMode);
+		void InitRender(const FString& MidiPath, const FString& OutFolder, const EPlaybackTypes& PlaybackType, const EPlaybackColorMode& PlaybackColorMode);
 
 	AStaticMeshActor* SpawnNote(FVector& location, FRotator& rotation);
 	TArray<AStaticMeshActor*> notes;

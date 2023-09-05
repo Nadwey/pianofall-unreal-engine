@@ -9,14 +9,14 @@ APlayback::APlayback()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 }
 
-void APlayback::InitRender(const FString& MidiPath, const FString& OutFolder, const EPlaybackTypes& PlaybackMode, const EPlaybackColorMode& PlaybackColorMode) {
+void APlayback::InitRender(const FString& MidiPath, const FString& OutFolder, const EPlaybackTypes& PlaybackType, const EPlaybackColorMode& PlaybackColorMode) {
 	PlayBackMidiFile.read(TCHAR_TO_UTF8(*MidiPath));
 	PlayBackMidiFile.doTimeAnalysis();
 	PlayBackMidiFile.sortTracks();
 	
 	this->outFolder = TCHAR_TO_UTF8(*OutFolder);
 
-	this->playbackType = PlaybackMode;
+	this->playbackType = PlaybackType;
 	this->playbackColorMode = PlaybackColorMode;
 
 	running = true;
