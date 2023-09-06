@@ -9,3 +9,11 @@
 ![A lot of colorful notes](https://github.com/Nadwey/pianofall-unreal-engine/assets/81181783/578b6f71-f076-4434-9f36-e9153cd856f3)
 
 [Showcase](https://www.youtube.com/watch?v=H7Ljd3_qltU)
+
+## Merge frames using FFmpeg
+
+To merge the frames you need to execute this command in the directory where the frames are located (Frame000001.png, Frame000002.png, Frame000003.png, etc...):
+
+```batch
+ffmpeg -i audio.mp3 -framerate 60 -i Frame%06d.png output.mp4
+```
