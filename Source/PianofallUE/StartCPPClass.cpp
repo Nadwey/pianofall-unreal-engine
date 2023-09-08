@@ -35,7 +35,12 @@ void AStartCPPClass::BeginPlay()
 void AStartCPPClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if ((GFrameNumber % 3) != 0) return;
+	
+	if (lastNoteSpawnedAgo <= 0.025f)
+	{
+		lastNoteSpawnedAgo += DeltaTime;
+		return;
+	}
 
 	UWorld* const StartWorld = GetWorld();
 
@@ -58,6 +63,7 @@ void AStartCPPClass::Tick(float DeltaTime)
 	}
 
 	currentNote++;
+	lastNoteSpawnedAgo = 0;
 }
 
 AStaticMeshActor* AStartCPPClass::SpawnNote(FVector& location, FRotator& rotation)

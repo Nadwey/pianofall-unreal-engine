@@ -9,6 +9,7 @@
 #include "Midiparser/MidiFile.h"
 #include "EPlaybackTypes.h"
 #include "EPlaybackColorMode.h"
+#include "Public/FPlaybackSettings.h"
 #include "Playback.generated.h"
 
 
@@ -30,12 +31,11 @@ public:
 		UStaticMesh* NoteToSpawn;
 
 	UFUNCTION(BlueprintCallable, Category = "Midi")
-		void InitRender(const FString& MidiPath, const FString& OutFolder, const EPlaybackTypes& PlaybackType, const EPlaybackColorMode& PlaybackColorMode);
+		void InitRender(const FPlaybackSettings& playbackSettings);
 
 	AStaticMeshActor* SpawnNote(FVector& location, FRotator& rotation);
 	TArray<AStaticMeshActor*> notes;
 	int currentNote;
-	const int MAX_NOTES = 10000;
 
 	EPlaybackTypes playbackType;
 	EPlaybackColorMode playbackColorMode;
@@ -43,6 +43,7 @@ public:
 	bool running = false;
 	uint64 frame = 0;
 	float MidiReadStep = 0.0f;
+	int MaxNotes = 10000;
 	
 	std::string outFolder;
 	smf::MidiFile PlayBackMidiFile;

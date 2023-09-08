@@ -9,15 +9,15 @@ APlayback::APlayback()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 }
 
-void APlayback::InitRender(const FString& MidiPath, const FString& OutFolder, const EPlaybackTypes& PlaybackType, const EPlaybackColorMode& PlaybackColorMode) {
-	PlayBackMidiFile.read(TCHAR_TO_UTF8(*MidiPath));
+void APlayback::InitRender(const FPlaybackSettings& playbackSettings) {
+	PlayBackMidiFile.read(TCHAR_TO_UTF8(*playbackSettings.MidiPath));
 	PlayBackMidiFile.doTimeAnalysis();
 	PlayBackMidiFile.sortTracks();
 	
-	this->outFolder = TCHAR_TO_UTF8(*OutFolder);
-
-	this->playbackType = PlaybackType;
-	this->playbackColorMode = PlaybackColorMode;
+	this->outFolder = TCHAR_TO_UTF8(*playbackSettings.RenderOutputPath);
+	this->playbackType = playbackSettings.PlaybackType;
+	this->playbackColorMode = playbackSettings.PlaybackColorMode;
+	this->MaxNotes = playbackSettings.MaxNotes;
 
 	running = true;
 }
@@ -46,7 +46,7 @@ void APlayback::Tick(float DeltaTime)
 					FRotator rotation = FRotator::ZeroRotator;
 					AStaticMeshActor* spawnedNote = SpawnNote(location, rotation);
 
-					if (currentNote > MAX_NOTES) currentNote = 0;
+					if (currentNote > MaxNotes) currentNote = 0;
 					if (notes.IsValidIndex(currentNote) && IsValid(notes[currentNote])) {
 						notes[currentNote]->Destroy();
 						notes[currentNote] = spawnedNote;
@@ -109,19 +109,16 @@ void APlayback::Tick(float DeltaTime)
 		}
 	}
 	
-	if (playbackType == EPlaybackTypes::Render)
-	{
-		std::stringstream ss;
-		ss << outFolder << "/Frame" << ZeroPadNumber(frame, 6) << ".png";
-		FScreenshotRequest::RequestScreenshot(ss.str().c_str(), false, false);
-	}
-
 	switch (playbackType)
 	{
 	case EPlaybackTypes::Realtime:
 		MidiReadStep += DeltaTime;
 		break;
 	case EPlaybackTypes::Render:
+		std::stringstream ss;
+		ss << outFolder << "/Frame" << ZeroPadNumber(frame, 6) << ".png";
+		FScreenshotRequest::RequestScreenshot(ss.str().c_str(), false, false);
+
 		MidiReadStep = (float)frame / 60.0f;
 		break;
 	}

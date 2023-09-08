@@ -603,7 +603,7 @@ namespace pfd
 
     inline bool settings::is_osascript() const
     {
-#if __APPLE__
+#ifdef __APPLE__
         return true;
 #else
         return false;
@@ -979,7 +979,7 @@ namespace pfd
 
     inline std::vector<std::string> internal::dialog::desktop_helper() const
     {
-#if __APPLE__
+#ifdef __APPLE__
         return { "osascript" };
 #else
         return { flags(flag::has_zenity) ? "zenity"

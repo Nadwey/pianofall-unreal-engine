@@ -23,4 +23,7 @@ struct FPlaybackSettings
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Playback Settings")
     EPlaybackColorMode PlaybackColorMode;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Playback Settings")
+    int MaxNotes;
 };
