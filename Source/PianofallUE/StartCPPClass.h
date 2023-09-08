@@ -30,7 +30,7 @@ public:
 	
 	AStaticMeshActor* SpawnNote(FVector& location, FRotator& rotation);
 	TArray<AStaticMeshActor*> notes;
-	int currentNote;
+	int currentNote = 0;
 	const int MAX_NOTES = 200;
 	float lastNoteSpawnedAgo = 0.0f;
 };

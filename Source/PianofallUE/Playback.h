@@ -35,7 +35,7 @@ public:
 
 	AStaticMeshActor* SpawnNote(FVector& location, FRotator& rotation);
 	TArray<AStaticMeshActor*> notes;
-	int currentNote;
+	int currentNote = 0;
 
 	EPlaybackTypes playbackType;
 	EPlaybackColorMode playbackColorMode;
