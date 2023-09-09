@@ -8,6 +8,8 @@
 
 ![A lot of colorful notes](https://github.com/Nadwey/pianofall-unreal-engine/assets/81181783/578b6f71-f076-4434-9f36-e9153cd856f3)
 
+![Pianos on a field with trees](https://github.com/Nadwey/pianofall-unreal-engine/assets/81181783/27ce0f90-640e-4560-809f-bd2c3bc42b02)
+
 [Showcase](https://www.youtube.com/watch?v=H7Ljd3_qltU)
 
 ## Merge frames using FFmpeg
