@@ -42,7 +42,7 @@ void APlayback::Tick(float DeltaTime)
 			if (midiEvent.seconds >= MidiReadStep) break;
 			if (midiEvent.seconds < MidiReadStep && midiEvent.isNoteOn()) {
 				if (!midiEvent.GetPlayedArleady()) {
-					FVector location(0.0f, map(midiEvent.getKeyNumber(), 24, 95, -1.0f, 1.0f) * 200.0f, 600.0f);
+					FVector location(0.0f, (midiEvent.getKeyNumber() - 60) * NoteToSpawn->GetBounds().BoxExtent.Y * 1.03f, 600.0f);
 					FRotator rotation = FRotator::ZeroRotator;
 					AStaticMeshActor* spawnedNote = SpawnNote(location, rotation);
 
@@ -64,42 +64,7 @@ void APlayback::Tick(float DeltaTime)
 
 					if (NoteMaterialInstance != nullptr)
 					{
-						switch (playbackColorMode)
-						{
-						case EPlaybackColorMode::RainbowHue: {
-							double range = 128;
-
-							RGB color = rgb((double)midiEvent.getKeyNumber() / range);
-
-							NoteMaterialInstance->SetScalarParameterValue(FName("R"), (float)color.r / 255.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("G"), (float)color.g / 255.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("B"), (float)color.b / 255.0f);
-							break;
-						}
-						case EPlaybackColorMode::Random: {
-							RGB color = RandomColor();
-
-							NoteMaterialInstance->SetScalarParameterValue(FName("R"), (float)color.r / 255.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("G"), (float)color.g / 255.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("B"), (float)color.b / 255.0f);
-
-							break;
-						}
-						case EPlaybackColorMode::Black: {
-							NoteMaterialInstance->SetScalarParameterValue(FName("R"), 0.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("G"), 0.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("B"), 0.0f);
-
-							break;
-						}
-						default: {
-							NoteMaterialInstance->SetScalarParameterValue(FName("R"), 0.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("G"), 0.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("B"), 0.0f);
-
-							break;
-						}
-						}
+						NoteMaterialInstance->SetScalarParameterValue(FName("Brightness"), (midiEvent.getKeyNumber() - 60.0f) / 119.0f);
 					}
 
 					PlayBackMidiFile[track].SetReadStep(mEvent);
