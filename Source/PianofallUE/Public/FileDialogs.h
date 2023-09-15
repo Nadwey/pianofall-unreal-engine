@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "portable-file-dialogs.h"
+#include "thirdparty/portable-file-dialogs.h"
 
 #include "FileDialogs.generated.h"
 

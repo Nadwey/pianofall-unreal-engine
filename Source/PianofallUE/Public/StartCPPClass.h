@@ -5,6 +5,7 @@
 #include <CoreMinimal.h>
 #include <Engine/LevelScriptActor.h>
 #include <Engine/StaticMeshActor.h>
+#include "NoteManager.h"
 #include "StartCPPClass.generated.h"
 
 /**
@@ -24,11 +25,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		UStaticMesh* BackgroundNoteToSpawn = nullptr;
-
-	UFUNCTION(BlueprintCallable, Category = "Midi")
-		void GetTrackStrings(const FString& MidiPath, FString& OutTracks);
 	
-	AStaticMeshActor* SpawnNote(FVector& location, FRotator& rotation);
 	TArray<AStaticMeshActor*> notes;
 	int currentNote = 0;
 	const int MAX_NOTES = 200;

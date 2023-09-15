@@ -15,18 +15,7 @@ std::string ZeroPadNumber(int num, int length)
 	return ret;
 }
 
-float map(float x, float in_min, float in_max, float out_min, float out_max)
-{
-	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
-struct RGB {
-	double r;
-	double g;
-	double b;
-};
-
-RGB rgb(double ratio)
+FLinearColor MakeRGB(double ratio)
 {
 	//we want to normalize ratio so that it fits in to 6 regions
 	//where each region is 256 units long
@@ -46,20 +35,10 @@ RGB rgb(double ratio)
 	case 5: red = 255;      grn = 0;        blu = 255 - x; break;//magenta
 	}
 
-	RGB color;
-	color.r = red;
-	color.g = grn;
-	color.b = blu;
-
-	return color;
-}
-
-RGB RandomColor()
-{
-	RGB color;
-	color.r = FMath::RandRange(0, 255);
-	color.g = FMath::RandRange(0, 255);
-	color.b = FMath::RandRange(0, 255);
+	FLinearColor color;
+	color.R = red / 255.0f;
+	color.G = grn / 255.0f;
+	color.B = blu / 255.0f;
 
 	return color;
 }

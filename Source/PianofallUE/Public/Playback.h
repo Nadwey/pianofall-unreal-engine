@@ -6,10 +6,11 @@
 #include <Engine/LevelScriptActor.h>
 #include <Engine/StaticMeshActor.h>
 #include <string>
-#include "Midiparser/MidiFile.h"
+#include "thirdparty/Midiparser/MidiFile.h"
 #include "EPlaybackTypes.h"
 #include "EPlaybackColorMode.h"
-#include "Public/FPlaybackSettings.h"
+#include "FPlaybackSettings.h"
+#include "NoteManager.h"
 #include "Playback.generated.h"
 
 
@@ -33,7 +34,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Midi")
 		void InitRender(const FPlaybackSettings& playbackSettings);
 
-	AStaticMeshActor* SpawnNote(FVector& location, FRotator& rotation);
 	TArray<AStaticMeshActor*> notes;
 	int currentNote = 0;
 
@@ -47,5 +47,4 @@ public:
 	
 	std::string outFolder;
 	smf::MidiFile PlayBackMidiFile;
-	
 };

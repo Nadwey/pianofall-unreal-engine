@@ -3,8 +3,8 @@
 #pragma once
 
 #include <CoreMinimal.h>
-#include "../EPlaybackTypes.h"
-#include "../EPlaybackColorMode.h"
+#include "EPlaybackTypes.h"
+#include "EPlaybackColorMode.h"
 #include "FPlaybackSettings.generated.h"
 
 USTRUCT(BlueprintType)

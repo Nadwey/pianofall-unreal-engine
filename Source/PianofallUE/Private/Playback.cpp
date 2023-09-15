@@ -42,9 +42,9 @@ void APlayback::Tick(float DeltaTime)
 			if (midiEvent.seconds >= MidiReadStep) break;
 			if (midiEvent.seconds < MidiReadStep && midiEvent.isNoteOn()) {
 				if (!midiEvent.GetPlayedArleady()) {
-					FVector location(0.0f, map(midiEvent.getKeyNumber(), 24, 95, -1.0f, 1.0f) * 200.0f, 600.0f);
+					FVector location(0.0f, (midiEvent.getKeyNumber() - 60) * NoteToSpawn->GetBounds().BoxExtent.Y * 2.05f, 600.0f);
 					FRotator rotation = FRotator::ZeroRotator;
-					AStaticMeshActor* spawnedNote = SpawnNote(location, rotation);
+					AStaticMeshActor* spawnedNote = SpawnMovableStaticMesh(GetWorld(), NoteToSpawn, location, rotation);
 
 					if (currentNote > MaxNotes) currentNote = 0;
 					if (notes.IsValidIndex(currentNote) && IsValid(notes[currentNote])) {
@@ -67,38 +67,21 @@ void APlayback::Tick(float DeltaTime)
 						switch (playbackColorMode)
 						{
 						case EPlaybackColorMode::RainbowHue: {
-							double range = 128;
+							FLinearColor color = MakeRGB((double)midiEvent.getKeyNumber() / 128.0);
 
-							RGB color = rgb((double)midiEvent.getKeyNumber() / range);
-
-							NoteMaterialInstance->SetScalarParameterValue(FName("R"), (float)color.r / 255.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("G"), (float)color.g / 255.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("B"), (float)color.b / 255.0f);
+							NoteMaterialInstance->SetVectorParameterValue(FName("Color"), color);
 							break;
 						}
 						case EPlaybackColorMode::Random: {
-							RGB color = RandomColor();
-
-							NoteMaterialInstance->SetScalarParameterValue(FName("R"), (float)color.r / 255.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("G"), (float)color.g / 255.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("B"), (float)color.b / 255.0f);
+							NoteMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::MakeRandomColor());
 
 							break;
 						}
-						case EPlaybackColorMode::Black: {
-							NoteMaterialInstance->SetScalarParameterValue(FName("R"), 0.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("G"), 0.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("B"), 0.0f);
+						case EPlaybackColorMode::Black:
+						default:
+							NoteMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Black);
 
 							break;
-						}
-						default: {
-							NoteMaterialInstance->SetScalarParameterValue(FName("R"), 0.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("G"), 0.0f);
-							NoteMaterialInstance->SetScalarParameterValue(FName("B"), 0.0f);
-
-							break;
-						}
 						}
 					}
 
@@ -119,26 +102,9 @@ void APlayback::Tick(float DeltaTime)
 		ss << outFolder << "/Frame" << ZeroPadNumber(frame, 6) << ".png";
 		FScreenshotRequest::RequestScreenshot(ss.str().c_str(), false, false);
 
-		MidiReadStep = (float)frame / 60.0f;
+		MidiReadStep = (double)frame / 60.0;
 		break;
 	}
 	
 	frame++;
-}
-
-AStaticMeshActor* APlayback::SpawnNote(FVector& location, FRotator& rotation)
-{
-	AStaticMeshActor* spawnedNote = GetWorld()->SpawnActor<AStaticMeshActor>(AStaticMeshActor::StaticClass());
-	spawnedNote->SetMobility(EComponentMobility::Movable);
-	spawnedNote->SetActorLocation(location);
-	spawnedNote->SetActorRotation(rotation);
-	UStaticMeshComponent* MeshComponent = spawnedNote->GetStaticMeshComponent();
-	if (MeshComponent)
-	{
-		MeshComponent->SetStaticMesh(NoteToSpawn);
-		MeshComponent->SetMobility(EComponentMobility::Movable);
-		MeshComponent->SetSimulatePhysics(true);
-	}
-
-	return spawnedNote;
 }
