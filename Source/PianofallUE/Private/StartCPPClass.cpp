@@ -1,6 +1,5 @@
 ﻿#include "StartCPPClass.h"
 #include "Utils/Random.h"
-#include "thirdparty/Midiparser/MidiFile.h"
 #include <string>
 #include <sstream>
 

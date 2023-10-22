@@ -14,8 +14,10 @@
 #ifndef _MIDIMESSAGE_H_INCLUDED
 #define _MIDIMESSAGE_H_INCLUDED
 
-#include <vector>
+#include <iostream>
 #include <string>
+#include <utility>
+#include <vector>
 
 namespace smf {
 
@@ -24,16 +26,8 @@ typedef unsigned short ushort;
 typedef unsigned long  ulong;
 
 class MidiMessage : public std::vector<uchar> {
-private:
-	bool playedArleady = false;
+
 	public:
-		void SetPlayedArleady(bool value) {
-			playedArleady = value;
-		}
-		bool GetPlayedArleady() {
-			return playedArleady;
-		}
-		
 		               MidiMessage          (void);
 		               MidiMessage          (int command);
 		               MidiMessage          (int command, int p1);
@@ -52,6 +46,9 @@ private:
 
 		void           sortTrack            (void);
 		void           sortTrackWithSequence(void);
+
+		static std::vector<uchar> intToVlv  (int value);
+		static double  frequencyToSemitones (double frequency, double a4frequency = 440.0);
 
 		// data access convenience functions (returns -1 if not present):
 		int            getP0                (void) const;
@@ -174,9 +171,39 @@ private:
 		void           setTempoMicroseconds (int microseconds);
 		void           setMetaTempo         (double tempo);
 
+
+		void           makeSysExMessage     (const std::vector<uchar>& data);
+
+		// helper functions to create MTS tunings by key (real-time sysex)
+
+		// MTS type 2: Real-time frequency assignment to a arbitrary list of MIDI key numbers.
+		// See page 2 of: https://docs.google.com/viewer?url=https://www.midi.org/component/edocman/midi-tuning-updated/fdocument?Itemid=9999
+		void           makeMts2_KeyTuningByFrequency  (int key, double frequency, int program = 0);
+		void           makeMts2_KeyTuningsByFrequency (int key, double frequency, int program = 0);
+		void           makeMts2_KeyTuningsByFrequency (std::vector<std::pair<int, double>>& mapping, int program = 0);
+		void           makeMts2_KeyTuningBySemitone   (int key, double semitone, int program = 0);
+		void           makeMts2_KeyTuningsBySemitone  (int key, double semitone, int program = 0);
+		void           makeMts2_KeyTuningsBySemitone  (std::vector<std::pair<int, double>>& mapping, int program = 0);
+
+		// MTS type 9: Real-time octave temperaments by +/- 100 cents deviation from ET
+		// See page 7 of: https://docs.google.com/viewer?url=https://www.midi.org/component/edocman/midi-tuning-updated/fdocument?Itemid=9999
+		void           makeMts9_TemperamentByCentsDeviationFromET (std::vector<double>& mapping, int referencePitchClass = 0, int channelMask = 0b1111111111111111);
+		void           makeTemperamentEqual(int referencePitchClass = 0, int channelMask = 0b1111111111111111);
+		void           makeTemperamentBad(double maxDeviationCents = 100.0, int referencePitchClass = 0, int channelMask = 0b1111111111111111);
+		void           makeTemperamentPythagorean(int referencePitchClass = 2, int channelMask = 0b1111111111111111);
+		void           makeTemperamentMeantone(double fraction = 0.25, int referencePitchClass = 2, int channelMask = 0b1111111111111111);
+		void           makeTemperamentMeantoneCommaQuarter(int referencePitchClass = 2, int channelMask = 0b1111111111111111);
+		void           makeTemperamentMeantoneCommaThird(int referencePitchClass = 2, int channelMask = 0b1111111111111111);
+		void           makeTemperamentMeantoneCommaHalf(int referencePitchClass = 2, int channelMask = 0b1111111111111111);
+
 };
 
+
+std::ostream& operator<<(std::ostream& out, MidiMessage& event);
+
+
 } // end of namespace smf
+
 
 #endif /* _MIDIMESSAGE_H_INCLUDED */
 

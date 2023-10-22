@@ -6,7 +6,7 @@
 #include <Engine/LevelScriptActor.h>
 #include <Engine/StaticMeshActor.h>
 #include <string>
-#include "thirdparty/Midiparser/MidiFile.h"
+#include "MidiFile.h"
 #include "EPlaybackTypes.h"
 #include "EPlaybackColorMode.h"
 #include "FPlaybackSettings.h"

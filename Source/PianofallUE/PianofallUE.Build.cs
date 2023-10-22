@@ -14,7 +14,8 @@ public class PianofallUE : ModuleRules
 
 		PublicIncludePaths.AddRange(
 			new string[] {
-				"PianofallUE"
+				"PianofallUE",
+				"PianofallUE/thirdparty/midifile/include",
 			}
 		);
 

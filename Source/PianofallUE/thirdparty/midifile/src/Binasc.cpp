@@ -17,6 +17,31 @@
 
 namespace smf {
 
+const char* Binasc::GMinstrument[128] = {
+   	"acoustic grand piano",   "bright acoustic piano",  "electric grand piano",  "honky-tonk piano", "rhodes piano",   "chorused piano",
+   	"harpsichord",  "clavinet",  "celeste",   "glockenspiel",   "music box",  "vibraphone",
+   	"marimba",   "xylophone",  "tubular bells",  "dulcimer",    "hammond organ",   "percussive organ",
+   	"rock organ",   "church organ", "reed organ",   "accordion",   "harmonica", "tango accordion",
+   	"nylon guitar",  "steel guitar",  "jazz guitar",   "clean guitar",  "muted guitar",   "overdriven guitar",
+   	"distortion guitar",   "guitar harmonics",   "acoustic bass",    "fingered electric bass",  "picked electric bass",  "fretless bass",
+   	"slap bass 1",  "slap bass 2",  "synth bass 1",  "synth bass 2",  "violin",    "viola",
+   	"cello",     "contrabass",  "tremolo strings",   "pizzcato strings",  "orchestral harp",      "timpani",
+   	"string ensemble 1",   "string ensemble 2",   "synth strings 1",   "synth strings 1",   "choir aahs",     "voice oohs",
+   	"synth voices",    "orchestra hit",   "trumpet",   "trombone",  "tuba",      "muted trumpet",
+   	"frenc horn", "brass section",  "syn brass 1",  "synth brass 2",  "soprano sax",  "alto sax",
+   	"tenor sax",  "baritone sax",   "oboe",      "english horn",  "bassoon",   "clarinet",
+   	"piccolo",   "flute",     "recorder",  "pan flute",  "bottle blow",    "shakuhachi",
+   	"whistle",   "ocarina",   "square wave",   "saw wave",   "calliope lead",  "chiffer lead",
+   	"charang lead",   "voice lead",   "fifths lead",   "brass lead",  "newage pad",  "warm pad",
+   	"polysyn pad",   "choir pad",   "bowed pad",  "metallic pad",  "halo pad",   "sweep pad",
+   	"rain",    "soundtrack",  "crystal",   "atmosphere",  "brightness",  "goblins",
+   	"echoes",   "sci-fi",  "sitar",     "banjo",     "shamisen",  "koto",
+   	"kalimba",   "bagpipes",  "fiddle",    "shanai",   "tinkle bell",  "agogo",
+   	"steel drums", "woodblock", "taiko drum",     "melodoc tom",      "synth drum",    "reverse cymbal",
+   	"guitar fret noise",   "breath noise",   "seashore",  "bird tweet",    "telephone ring", "helicopter",
+   	"applause",  "gunshot"
+};
+
 //////////////////////////////
 //
 // Binasc::Binasc -- Constructor: set the default option values.
@@ -717,7 +742,9 @@ int Binasc::readMidiEvent(std::ostream& out, std::istream& infile,
 			output << " '" << std::dec << (int)byte1;
 			if (m_commentsQ) {
 				output << "\t";
-				comment += "patch-change";
+				comment += "patch-change (";
+				comment += GMinstrument[byte1 & 0x7f];
+				comment += ")";
 			}
 			break;
 		case 0xD0:    // channel pressure: 1 bytes
@@ -729,6 +756,22 @@ int Binasc::readMidiEvent(std::ostream& out, std::istream& infile,
 		case 0xF0:    // various system bytes: variable bytes
 			switch (command) {
 				case 0xf0:
+					{
+					// A system exclusive message.   The first byte
+					// is 0xf0, then a VLV of the length of the message
+					// and then the message itself (which must end with 0xf7).
+					int length = getVLV(infile, trackbytes);
+					output << " v" << std::dec << length;
+					for (int b=0; b<length; b++) {
+						infile.read((char*)&ch, 1);
+						trackbytes++;
+						if (ch < 0x10) {
+						   output << " 0" << std::hex << (int)ch;
+						} else {
+						   output << " " << std::hex << (int)ch;
+						}
+					}
+					}
 					break;
 				case 0xf7:
 					// Read the first byte which is either 0xf0 or 0xf7.

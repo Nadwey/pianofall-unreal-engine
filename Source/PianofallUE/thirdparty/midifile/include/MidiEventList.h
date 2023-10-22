@@ -20,14 +20,6 @@ namespace smf {
 
 class MidiEventList {
 	public:
-		void SetReadStep(float val)
-		{
-			readStep = val;
-		}
-		float GetReadStep()
-		{
-			return readStep;
-		}
 		                 MidiEventList      (void);
 		                 MidiEventList      (const MidiEventList& other);
 		                 MidiEventList      (MidiEventList&& other);
@@ -67,12 +59,13 @@ class MidiEventList {
 		// access to the list of MidiEvents for sorting with an external function:
 		MidiEvent**      data               (void);
 
+		int readStep = 0;
+
 	protected:
 		std::vector<MidiEvent*> list;
 
 	private:
 		void             sort                (void);
-		float readStep = 0;
 
 	// MidiFile class calls sort()
 	friend class MidiFile;
